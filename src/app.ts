@@ -4,6 +4,15 @@ import express from "express";
 import deptRouter from "./routers/dept";
 import empRouter from './routers/emp';
 const app = express();
+import fs from 'fs';
+import morgan from 'morgan';
+import path from 'path';
+
+// create a write stream (in append mode)
+const accessLogStream = fs.createWriteStream(path.join(__dirname + '/logs/', 'access.log'), { flags: 'a' })
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(express.json());
 

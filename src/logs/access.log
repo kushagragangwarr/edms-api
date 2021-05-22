@@ -1,0 +1,4 @@
+::1 - - [22/May/2021:18:55:48 +0000] "GET /emp?searchBy=emp_id:=:1 HTTP/1.1" 200 73 "-" "PostmanRuntime/7.28.0"
+::1 - - [22/May/2021:18:57:10 +0000] "GET /emp HTTP/1.1" 200 434 "-" "PostmanRuntime/7.28.0"
+::1 - - [22/May/2021:18:57:20 +0000] "DELETE /emp/6 HTTP/1.1" 200 16 "-" "PostmanRuntime/7.28.0"
+::1 - - [22/May/2021:18:57:25 +0000] "GET /emp HTTP/1.1" 200 365 "-" "PostmanRuntime/7.28.0"
