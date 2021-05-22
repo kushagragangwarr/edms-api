@@ -1,8 +1,8 @@
 import pool from '../db/db';
 import { Request, Response} from 'express';
 
-const deptController = {
-    createDept: async (req: Request, res: Response) => {
+class DeptController {
+    async createDept (req: Request, res: Response) {
         try {
             const newDept = await pool.query('INSERT INTO dept(dept_name) VALUES($1) RETURNING *', [req.body.deptName]);
 
@@ -10,9 +10,9 @@ const deptController = {
         } catch (error) {   
             res.status(400).json({ error });
         }
-    },
+    }
 
-    getAllDept: async (req: Request, res: Response) => {
+    async getAllDept (req: Request, res: Response) {
         try {
             const depts = await pool.query('SELECT * FROM dept');
     
@@ -20,9 +20,9 @@ const deptController = {
         } catch (error) {
             res.status(400).json({ error });
         }
-    },
+    }
     
-    getDept: async (req: Request, res: Response) => {
+    async getDept (req: Request, res: Response) {
         try {
             const depts = await pool.query('SELECT * FROM dept where dept_id = $1', [req.params.id]);
     
@@ -30,9 +30,9 @@ const deptController = {
         } catch (error) {
             res.status(400).json({ error });
         }
-    },
+    }
 
-    deleteDept: async (req: Request, res: Response) => {
+    async deleteDept (req: Request, res: Response) {
         try {
             await pool.query('DELETE FROM dept WHERE dept_id = $1', [req.params.id]);
     
@@ -41,6 +41,6 @@ const deptController = {
             res.status(400).json({ error });
         }
     }
-};
+}
 
-export default deptController;
+export default DeptController;

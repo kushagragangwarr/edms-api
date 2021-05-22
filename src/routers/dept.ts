@@ -1,6 +1,7 @@
 import express from 'express';
-import deptController from '../controllers/dept';
+import DeptController from '../controllers/dept';
 const deptRouter = express.Router();
+const deptController = new DeptController();
 
 // Creating a department
 deptRouter.post('/', deptController.createDept);

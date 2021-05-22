@@ -1,6 +1,7 @@
 import express from 'express';
 const empRouter = express.Router();
-import empController from '../controllers/emp';
+import EmpController from '../controllers/emp';
+const empController = new EmpController();
 
 // create an employee
 empRouter.post('/', empController.createEmployee);
