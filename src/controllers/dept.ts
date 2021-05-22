@@ -13,19 +13,18 @@ class DeptController {
         }
     }
 
-    async getAllDept (req: Request, res: Response) {
+    async searchDept (req: Request, res: Response) {
         try {
-            const depts = await pool.query('SELECT * FROM dept');
-    
-            res.send(depts.rows);
-        } catch (error) {
-            res.status(400).json({ error });
-        }
-    }
-    
-    async getDept (req: Request, res: Response) {
-        try {
-            const depts = await pool.query('SELECT * FROM dept where dept_id = $1', [req.params.id]);
+            const query = 'SELECT * FROM dept';
+            let searchQuery = '';
+
+            if (req.query.searchBy) {
+
+                const searchFilter = req.query.searchBy.toString().split(':');
+                searchQuery = ` WHERE ${searchFilter[0]} ${searchFilter[1]} ${searchFilter[2]}`;
+            }
+
+            const depts = await pool.query(query + searchQuery);
     
             res.send(depts.rows);
         } catch (error) {

@@ -6,11 +6,8 @@ const deptController = new DeptController();
 // Creating a department
 deptRouter.post('/', deptController.createDept);
 
-// Get all departments
-deptRouter.get('/', deptController.getAllDept);
-
-// get a department
-deptRouter.get('/:id', deptController.getDept);
+// Search department BASED ON ANY FIELD AND ALSO SORT THEM ACCORDINGLY (according to user preference)
+deptRouter.get('/', deptController.searchDept);
 
 /* ******* update a department : If taking a real life scenerio, it's not possible to change the Department name, so this route is useless. 
 deptRouter.put('/:id', deptController.updateDepartment);
