@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import pool from '../db/db';
 
+// Class Based Controller
 class EmpController {
     async createEmployee (req: Request, res: Response) {
         try {
@@ -13,19 +14,23 @@ class EmpController {
         }
     }
 
-    async getAllEmployees (req: Request, res: Response) {
+    async searchEmployee (req: Request, res: Response) {
         try {
-            const employees = await pool.query('SELECT * FROM employee');
-    
-            res.send(employees.rows);
-        } catch (error) {
-            res.status(400).json({ error });
-        }
-    }
+            const query = 'SELECT * FROM employee';
+            let searchQuery = '';
+            let sortQuery = '';
 
-    async getEmployee (req: Request, res: Response) {
-        try {
-            const employees = await pool.query('SELECT * FROM employee where emp_id = $1', [req.params.id]);
+            if (req.query.searchBy) {
+
+                const searchFilter = req.query.searchBy.toString().split(':');
+                searchQuery = ` WHERE ${searchFilter[0]} ${searchFilter[1]} ${searchFilter[2]}`;
+            }
+
+            if (req.query.sortBy) {
+                sortQuery = ` ORDER BY ${req.query.sortBy}`;
+            }
+
+            const employees = await pool.query(query + searchQuery + sortQuery);
     
             res.send(employees.rows);
         } catch (error) {
@@ -35,8 +40,17 @@ class EmpController {
 
     async updateEmployee (req: Request, res: Response) {
         try {
-            const { name, salary } = req.body;
-            await pool.query('UPDATE employee SET emp_name = $1, emp_salary = $2 WHERE emp_id = $3', [name, salary, req.params.id]);
+            const { changes, updateBy } = req.body;
+            const query = 'UPDATE employee SET';
+            let changeQuery = '';
+
+            for (let change in changes) {
+                changeQuery += ' ' + change + ' = ' + changes[change] + ',';
+            }
+
+            changeQuery = changeQuery.substring(0, changeQuery.length - 1);
+
+            await pool.query(query + changeQuery + 'WHERE emp_id = $1', [updateBy.emp_id]);
     
             res.send('Employee Updated');
         } catch (error) {

@@ -1,6 +1,7 @@
 import pool from '../db/db';
 import { Request, Response} from 'express';
 
+// Class Based Controller
 class DeptController {
     async createDept (req: Request, res: Response) {
         try {

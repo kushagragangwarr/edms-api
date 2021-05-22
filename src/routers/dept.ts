@@ -9,14 +9,14 @@ deptRouter.post('/', deptController.createDept);
 // Get all departments
 deptRouter.get('/', deptController.getAllDept);
 
-// get an employee
+// get a department
 deptRouter.get('/:id', deptController.getDept);
 
-/* ******* update an employee : If taking a real life scenerio, it's not possible to change the Department name, so this route is useless. 
-deptRouter.put('/:id', deptController.updateEmployee);
+/* ******* update a department : If taking a real life scenerio, it's not possible to change the Department name, so this route is useless. 
+deptRouter.put('/:id', deptController.updateDepartment);
 ******** */
 
-// delete an employee
+// delete a department
 deptRouter.delete('/:id', deptController.deleteDept);
 
 export default deptRouter;

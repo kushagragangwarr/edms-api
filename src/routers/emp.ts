@@ -6,14 +6,11 @@ const empController = new EmpController();
 // create an employee
 empRouter.post('/', empController.createEmployee);
 
-// get all employees
-empRouter.get('/', empController.getAllEmployees);
-
-// get an employee
-empRouter.get('/:id', empController.getEmployee);
+// Search employee BASED ON ANY FIELD AND ALSO SORT THEM ACCORDINGLY (according to user preference)
+empRouter.get('/', empController.searchEmployee);
 
 // update an employee
-empRouter.put('/:id', empController.updateEmployee);
+empRouter.put('/', empController.updateEmployee);
 
 // delete an employee
 empRouter.delete('/:id', empController.deleteEmployee);
