@@ -1,11 +1,12 @@
 import pool from '../db/db';
 import { Request, Response} from 'express';
+import * as constants from '../utility/constants';
 
 // Class Based Controller
 class DeptController {
     async createDept (req: Request, res: Response) {
         try {
-            const newDept = await pool.query('INSERT INTO dept(dept_name) VALUES($1) RETURNING *', [req.body.deptName]);
+            const newDept = await pool.query(constants.DEPT_INSERT_QUERY, [req.body.deptName]);
 
             res.send(newDept.rows[0]);
         } catch (error) {   
@@ -15,7 +16,7 @@ class DeptController {
 
     async searchDept (req: Request, res: Response) {
         try {
-            const query = 'SELECT * FROM dept';
+            const query = constants.DEPT_SELECTION_QUERY;
             let searchQuery = '';
 
             if (req.query.searchBy) {
@@ -34,7 +35,7 @@ class DeptController {
 
     async deleteDept (req: Request, res: Response) {
         try {
-            await pool.query('DELETE FROM dept WHERE dept_id = $1', [req.params.id]);
+            await pool.query(constants.DEPT_DELETION_QUERY, [req.params.id]);
     
             res.send('Department DELETED');
         } catch (error) {

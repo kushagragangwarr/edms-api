@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import pool from '../db/db';
+import * as constants from '../utility/constants';
 
 // Class Based Controller
 class EmpController {
     async createEmployee (req: Request, res: Response) {
         try {
             const { name, salary, dept } = req.body;
-            const newEmployee = await pool.query('INSERT INTO employee (emp_name, emp_salary, dept_id) VALUES ($1, $2, $3) RETURNING *', [name, salary, dept]);
+            const newEmployee = await pool.query(constants.EMP_INSERT_QUERY, [name, salary, dept]);
     
             res.send(newEmployee.rows[0]);
         } catch (error) {
@@ -16,7 +17,7 @@ class EmpController {
 
     async searchEmployee (req: Request, res: Response) {
         try {
-            const query = 'SELECT * FROM employee';
+            const query = constants.EMP_SELECTION_QUERY;
             let searchQuery = '';
             let sortQuery = '';
 
@@ -41,7 +42,7 @@ class EmpController {
     async updateEmployee (req: Request, res: Response) {
         try {
             const { changes, updateBy } = req.body;
-            const query = 'UPDATE employee SET';
+            const query = constants.EMP_UPDATION_QUERY;
             let changeQuery = '';
 
             for (let change in changes) {
@@ -60,7 +61,7 @@ class EmpController {
 
     async deleteEmployee (req: Request, res: Response) {
         try {
-            await pool.query('DELETE FROM employee WHERE emp_id = $1', [req.params.id]);
+            await pool.query(constants.EMP_DELETION_QUERY, [req.params.id]);
     
             res.send('Employee DELETED');
         } catch (error) {
