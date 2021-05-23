@@ -45,6 +45,11 @@ class EmpController {
             const query = constants.EMP_UPDATION_QUERY;
             let changeQuery = '';
 
+            const emp = await pool.query(constants.EMP_SELECTION_QUERY + " WHERE emp_id = $1", [updateBy.emp_id]);
+            if (emp.rowCount == 0) {
+                return res.status(400).json({ msg: 'EMPLOYEE NOT FOUND' });
+            }
+
             for (let change in changes) {
                 changeQuery += ' ' + change + ' = ' + changes[change] + ',';
             }
@@ -53,7 +58,7 @@ class EmpController {
 
             await pool.query(query + changeQuery + 'WHERE emp_id = $1', [updateBy.emp_id]);
     
-            res.send('Employee Updated');
+            res.json({ msg: 'EMPLOYEE UPDATED' });
         } catch (error) {
             res.status(400).json({ error });
         }
@@ -61,9 +66,14 @@ class EmpController {
 
     async deleteEmployee (req: Request, res: Response) {
         try {
+            const emp = await pool.query(constants.EMP_SELECTION_QUERY + " WHERE emp_id = $1", [req.params.id]);
+            if (emp.rowCount == 0) {
+                return res.status(400).json({ msg: 'EMPLOYEE NOT FOUND' });
+            }
+
             await pool.query(constants.EMP_DELETION_QUERY, [req.params.id]);
     
-            res.send('Employee DELETED');
+            res.json({ msg: 'EMPLOYEE DELETED' });
         } catch (error) {
             res.status(400).json({ error });
         }
