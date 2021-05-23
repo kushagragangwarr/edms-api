@@ -1,5 +1,5 @@
 import pool from '../db/db';
-import { Request, Response} from 'express';
+import { Request, Response } from 'express';
 import * as constants from '../utility/constants';
 
 // Class Based Controller
@@ -7,7 +7,6 @@ class DeptController {
     async createDept (req: Request, res: Response) {
         try {
             const newDept = await pool.query(constants.DEPT_INSERT_QUERY, [req.body.deptName]);
-
             res.send(newDept.rows[0]);
         } catch (error) {   
             res.status(400).json({ error });
