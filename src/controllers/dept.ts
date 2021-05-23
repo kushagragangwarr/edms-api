@@ -34,9 +34,14 @@ class DeptController {
 
     async deleteDept (req: Request, res: Response) {
         try {
+            const emp = await pool.query(constants.DEPT_SELECTION_QUERY + " WHERE dept_id = $1", [req.params.id]);
+            if (emp.rowCount == 0) {
+                return res.status(400).json({ msg: 'DEPARTMENT NOT FOUND' });
+            }
+
             await pool.query(constants.DEPT_DELETION_QUERY, [req.params.id]);
     
-            res.send('Department DELETED');
+            res.json({ msg: 'DEPARTMENT DELETED' });
         } catch (error) {
             res.status(400).json({ error });
         }
