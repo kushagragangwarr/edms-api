@@ -19,7 +19,6 @@ class EmpController {
         try {
             const query = constants.EMP_SELECTION_QUERY;
             let searchQuery = '';
-            let sortQuery = '';
 
             if (req.query.searchBy) {
 
@@ -27,11 +26,7 @@ class EmpController {
                 searchQuery = ` WHERE ${searchFilter[0]} ${searchFilter[1]} ${searchFilter[2]}`;
             }
 
-            if (req.query.sortBy) {
-                sortQuery = ` ORDER BY ${req.query.sortBy}`;
-            }
-
-            const employees = await pool.query(query + searchQuery + sortQuery);
+            const employees = await pool.query(query + searchQuery + " ORDER BY emp_name");
     
             res.send(employees.rows);
         } catch (error) {
