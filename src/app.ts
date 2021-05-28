@@ -28,5 +28,5 @@ app.use('/dept', deptRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(3000, () => {
-    console.log('Running on port 3000');
+    console.log('Serving on http://localhost:3000');
 });
