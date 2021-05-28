@@ -7,6 +7,12 @@ class EmpController {
     async createEmployee (req: Request, res: Response) {
         try {
             const { name, salary, dept } = req.body;
+            const department = await pool.query(constants.DEPT_SELECTION_QUERY + ' WHERE dept_id = $1', [dept]);
+            
+            if (department.rowCount == 0) {
+                return res.status(404).json({ error: `Department with dept_id ${dept} not found`});
+            }
+
             const newEmployee = await pool.query(constants.EMP_INSERT_QUERY, [name, salary, dept]);
     
             res.send(newEmployee.rows[0]);
