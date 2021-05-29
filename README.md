@@ -15,11 +15,13 @@ dept_name : VARCHAR(22)
 # Prerequisites
 ## Installation
 - NodeJS
-> https://nodejs.org/en/
-- Postgres
-> **Windows**: https://www.postgresql.org/
 
-> **Linux**: sudo apt install postgresql
+  > https://nodejs.org/en/
+- Postgres
+
+  > **Windows**: https://www.postgresql.org/
+
+  > **Linux**: sudo apt install postgresql
 
 ## Configuration
 - Postgres
@@ -37,14 +39,19 @@ dept_name : VARCHAR(22)
 You don't necessarily need to start the SQL server in order to use it in the API. But if you want to access the SQL shell, then
 
 - Windows
-> psql -U postgres
+
+  > psql -U postgres
 - Linux
-> psql -U postgres -h localhost
+
+  > psql -U postgres -h localhost
 
 # Usage
 - Install all dependencies
-> npm install
+
+  > npm install
 - Start the server
-> npm start
+
+  > npm start
 - To see API documentation, visit
-> localhost:3000/api-docs
+
+  > localhost:3000/api-docs
