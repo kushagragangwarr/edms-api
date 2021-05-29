@@ -1,4 +1,4 @@
-# edms-api-temp
+# edms-api
 An API created using **NodeJS** and **PostgreSQL** for maintaining Employee-Department database, where ADMIN can Create, Search, Update and Delete an employee and a department and each employee is part of a department.
 
 # Schemas
